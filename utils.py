@@ -1,7 +1,7 @@
 import re
 
 def calculate_ats_score(text):
-    scoro = 0
+    score = 0
 
     verbs = ["led", "built", "developed", "improved", "increased", "reduced"]
     if any(v in text.lower() for v in verbs):

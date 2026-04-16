@@ -42,3 +42,4 @@ if st.button("Improve Bullet"):
                 st.info("Good, but can be slightly stronger")
             else:
                 st.success("Execellent bullet!")
+

@@ -1,18 +1,26 @@
 import os
-from openai import OpenAI
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 def improve_bullet(prompt):
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "You are a resume optimization expert."},
-            {"role": "user", "content": prompt}
-        ],
-        temperature = 0.7
-    )
-    return response.choices[0].message.content
+
+    model = genai.GenerativeModel("gemini-2.5-flash")
+
+    response = model.generate_content(prompt)
+
+    # google-generativeai responses expose text via `response.text`, not `choices`.
+    if getattr(response, "text", None):
+        return response.text
+
+    # Fallback for cases where text is not directly populated.
+    candidates = getattr(response, "candidates", None) or []
+    if candidates:
+        parts = getattr(candidates[0].content, "parts", None) or []
+        if parts and getattr(parts[0], "text", None):
+            return parts[0].text
+
+    raise ValueError("Gemini returned an empty response. Please try again.")
