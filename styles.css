@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+/* =========================
+   1) Theme Variables
+   ========================= */
+:root,
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --muted-text-color: #475569;
+    --card-bg: #f5f5f5;
+    --border-color: #dddddd;
+    --input-bg: #ffffff;
+    --input-text: #000000;
+    --input-border: #dddddd;
+    --button-bg: linear-gradient(to right, #4caf50, #00c6ff);
+    --button-hover-bg: linear-gradient(to right, #3ea246, #00b4ec);
+    --button-text: #ffffff;
+    --focus-ring: rgba(76, 175, 80, 0.25);
+    --shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+    --divider-color: rgba(71, 85, 105, 0.28);
+    --title-gradient: linear-gradient(to right, #4caf50, #00c6ff);
+    --progress-bg: linear-gradient(to right, #4caf50, #00c6ff);
+    --code-bg: #f6f8fa;
+    --code-text: #000000;
+    --app-shell-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+    --radius-lg: 16px;
+    --radius-md: 12px;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0e1117;
+    --text-color: #ffffff;
+    --muted-text-color: #9fb0c8;
+    --card-bg: #1c1f26;
+    --border-color: #333333;
+    --input-bg: #111722;
+    --input-text: #ffffff;
+    --input-border: #333333;
+    --button-bg: linear-gradient(to right, #4caf50, #00c6ff);
+    --button-hover-bg: linear-gradient(to right, #3ea246, #00b4ec);
+    --button-text: #f8fdff;
+    --focus-ring: rgba(0, 198, 255, 0.3);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --divider-color: rgba(159, 176, 200, 0.24);
+    --title-gradient: linear-gradient(to right, #4caf50, #00c6ff);
+    --progress-bg: linear-gradient(to right, #4caf50, #00c6ff);
+    --code-bg: #1e1e1e;
+    --code-text: #ffffff;
+    --app-shell-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================
+   2) Layout
+   ========================= */
+
+html,
+body,
+[data-testid="stAppViewContainer"],
+[data-testid="stAppViewContainer"] > .main {
+    font-family: 'Manrope', sans-serif;
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    background: var(--bg-color);
+}
+
+.app-container,
+.block-container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--app-shell-shadow);
+}
+
+.block-container {
+    max-width: 1100px;
+    padding-top: 2.2rem;
+    padding-bottom: 2.2rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+div,
+span {
+    font-family: 'Manrope', sans-serif;
+}
+
+.app-container *:not(pre):not(code),
+.block-container *:not(pre):not(code) {
+    color: var(--text-color) !important;
+}
+
+.app-title {
+    margin: 0;
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: var(--title-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.app-subtitle {
+    margin-top: 0.6rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--muted-text-color) !important;
+    font-size: 1rem;
+}
+
+/* =========================
+   3) Components
+   ========================= */
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 0.7rem;
+    color: var(--text-color) !important;
+}
+
+.app-container .stTextArea label,
+.app-container .stSelectbox label,
+.block-container .stTextArea label,
+.block-container .stSelectbox label {
+    color: var(--text-color) !important;
+}
+
+[data-testid="stTextArea"] textarea {
+    background: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-md);
+    padding: 0.9rem;
+    line-height: 1.45;
+}
+
+[data-testid="stTextArea"] textarea::placeholder {
+    color: var(--muted-text-color);
+}
+
+[data-testid="stTextArea"] textarea:focus {
+    border-color: var(--input-border);
+    box-shadow: 0 0 0 2px var(--focus-ring);
+}
+
+[data-testid="stSelectbox"] > div > div {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-md);
+}
+
+[data-testid="stSelectbox"] input {
+    color: var(--input-text) !important;
+}
+
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    color: var(--input-text) !important;
+}
+
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3,
+[data-testid="stMarkdownContainer"] h4 {
+    color: var(--text-color) !important;
+}
+
+.stButton > button {
+    width: 100%;
+    border: none;
+    border-radius: 999px;
+    background: var(--button-bg);
+    color: var(--button-text);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding: 0.62rem 1rem;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    box-shadow: var(--shadow);
+}
+
+.stButton > button:hover {
+    background: var(--button-hover-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.28);
+}
+
+.stButton > button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+[data-testid="stCodeBlock"] {
+    background-color: var(--code-bg) !important;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-md);
+}
+
+.stCodeBlock,
+.app-container pre,
+.app-container code,
+.block-container pre,
+.block-container code,
+[data-testid="stCodeBlock"] pre,
+[data-testid="stCodeBlock"] code {
+    background-color: var(--code-bg) !important;
+    color: var(--code-text) !important;
+}
+
+[data-testid="stCodeBlock"] span {
+    color: var(--code-text) !important;
+}
+
+[data-testid="stProgressBar"] > div > div > div > div {
+    background: var(--progress-bg);
+}
+
+hr {
+    border-color: var(--divider-color);
+}
+
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] div,
+[data-testid="stAlert"] span {
+    color: inherit;
+}
+
+@media (max-width: 768px) {
+    .block-container {
+        padding-top: 1.4rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .app-title {
+        font-size: 1.8rem;
+    }
+}

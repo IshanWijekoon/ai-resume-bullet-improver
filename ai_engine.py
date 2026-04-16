@@ -1,26 +1,34 @@
 import os
-import google.generativeai as genai
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 def improve_bullet(prompt):
+    url = "https://openrouter.ai/api/v1/chat/completions"
 
-    model = genai.GenerativeModel("gemini-2.5-flash")
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json",
+    }
 
-    response = model.generate_content(prompt)
+    data = {
+        "model": "google/gemma-3-4b-it:free",
+        "messages": [
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    }
 
-    # google-generativeai responses expose text via `response.text`, not `choices`.
-    if getattr(response, "text", None):
-        return response.text
+    response = requests.post(url, headers=headers, json=data)
 
-    # Fallback for cases where text is not directly populated.
-    candidates = getattr(response, "candidates", None) or []
-    if candidates:
-        parts = getattr(candidates[0].content, "parts", None) or []
-        if parts and getattr(parts[0], "text", None):
-            return parts[0].text
+    if response.status_code != 200:
+        return f"Error: {response.text}"
 
-    raise ValueError("Gemini returned an empty response. Please try again.")
+    result = response.json()
+
+    return result["choices"][0]["message"]["content"]
